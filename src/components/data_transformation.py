@@ -11,7 +11,7 @@ from sklearn.base import BaseEstimator, TransformerMixin
 
 from src.exception import CustomException
 from src.logger import logging
-from src.utils import save_preprocessor
+from src.utils import save_object
 
 @dataclass
 class DataTransformationConfig:
@@ -74,7 +74,6 @@ class CategoricalTransformer(BaseEstimator, TransformerMixin):
 class DataTransformation:
     def __init__(self):
         self.config = DataTransformationConfig()
-        # self.df = pd.read_csv(df_path)
 
     def data_transformer(self):
         try:
@@ -135,12 +134,11 @@ class DataTransformation:
             train_arr = np.concatenate([X_train_transformed, y_train.values.reshape(-1, 1)], axis=1)
             test_arr = np.concatenate([X_test_transformed, y_test.values.reshape(-1, 1)], axis=1)
 
-            save_preprocessor(preprocessor=preprocessor, 
-                              file_path=self.config.preprocessor_file_path)
+            save_object(obj=preprocessor, 
+                        file_path=self.config.preprocessor_file_path)
             logging.info("Preprocessor saved successfully")
 
-            return train_arr, test_arr, self.config.preprocessor_file_path
+            return train_arr, test_arr
 
         except Exception as e:
             raise CustomException(e, sys)
-        
