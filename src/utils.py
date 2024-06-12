@@ -4,12 +4,12 @@ import joblib
 from src.exception import CustomException
 from sklearn.metrics import confusion_matrix, accuracy_score, classification_report
 
-
 def save_object(obj, file_path):
     try:
         dir_path = os.path.dirname(file_path)
         os.makedirs(dir_path, exist_ok=True)
         joblib.dump(obj, file_path)
+
     except Exception as e:
         raise CustomException(e, sys)
     
