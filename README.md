@@ -19,3 +19,5 @@ Lorem ipsum.
 
 ## Deployment Overview
 Below is an example of the deployed web application. Users can input their credit card information, and the machine learning model will predict the credit score category (poor, standard, or good).
+
+![Deployment](images/deployment.gif)
