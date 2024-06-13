@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Credit Score Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .form-group select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+        }
+        .form-group input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .form-group input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .prediction-result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e7f3fe;
+            border: 1px solid #b3d4fc;
+            border-radius: 4px;
+            color: #31708f;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Credit Score Prediction</h1>
+    <form action="/predict" method="post">
+        <div class="form-group">
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age" required>
+        </div>
+        <div class="form-group">
+            <label for="occupation">Occupation:</label>
+            <input type="text" id="occupation" name="occupation" required>
+        </div>
+        <div class="form-group">
+            <label for="annual_income">Annual Income:</label>
+            <input type="number" step="0.01" id="annual_income" name="annual_income" required>
+        </div>
+        <div class="form-group">
+            <label for="num_bank_accounts">Number of Bank Accounts:</label>
+            <input type="number" id="num_bank_accounts" name="num_bank_accounts" required>
+        </div>
+        <div class="form-group">
+            <label for="num_credit_card">Number of Credit Cards:</label>
+            <input type="number" id="num_credit_card" name="num_credit_card" required>
+        </div>
+        <div class="form-group">
+            <label for="interest_rate">Interest Rate:</label>
+            <input type="number" step="0.01" id="interest_rate" name="interest_rate" required>
+        </div>
+        <div class="form-group">
+            <label for="num_of_loan">Number of Loans:</label>
+            <input type="number" id="num_of_loan" name="num_of_loan" required>
+        </div>
+        <div class="form-group">
+            <label for="delay_from_due_date">Delay from Due Date:</label>
+            <input type="number" id="delay_from_due_date" name="delay_from_due_date" required>
+        </div>
+        <div class="form-group">
+            <label for="num_of_delayed_payment">Number of Delayed Payments:</label>
+            <input type="number" id="num_of_delayed_payment" name="num_of_delayed_payment" required>
+        </div>
+        <div class="form-group">
+            <label for="changed_credit_limit">Changed Credit Limit:</label>
+            <input type="number" id="changed_credit_limit" name="changed_credit_limit" required>
+        </div>
+        <div class="form-group">
+            <label for="num_credit_inquiries">Number of Credit Inquiries:</label>
+            <input type="number" id="num_credit_inquiries" name="num_credit_inquiries" required>
+        </div>
+        <div class="form-group">
+            <label for="credit_mix">Credit Mix:</label>
+            <select id="credit_mix" name="credit_mix" required>
+                <option value="Bad">Bad</option>
+                <option value="Standard">Standard</option>
+                <option value="Good">Good</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="outstanding_debt">Outstanding Debt:</label>
+            <input type="number" step="0.01" id="outstanding_debt" name="outstanding_debt" required>
+        </div>
+        <div class="form-group">
+            <label for="credit_utilization_ratio">Credit Utilization Ratio:</label>
+            <input type="number" step="0.01" id="credit_utilization_ratio" name="credit_utilization_ratio" required>
+        </div>
+        <div class="form-group">
+            <label for="payment_of_min_amount">Payment of Minimum Amount:</label>
+            <select id="payment_of_min_amount" name="payment_of_min_amount" required>
+                <option value="No">No</option>
+                <option value="NM">NM</option>
+                <option value="Yes">Yes</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="total_emi_per_month">Total EMI per Month:</label>
+            <input type="number" step="0.01" id="total_emi_per_month" name="total_emi_per_month" required>
+        </div>
+        <div class="form-group">
+            <label for="amount_invested_monthly">Amount Invested Monthly:</label>
+            <input type="number" step="0.01" id="amount_invested_monthly" name="amount_invested_monthly" required>
+        </div>
+        <div class="form-group">
+            <label for="payment_behaviour">Payment Behaviour:</label>
+            <select id="payment_behaviour" name="payment_behaviour" required>
+                <option value="Low_spent_Small_value_payments">Low spent, Small value payments</option>
+                <option value="Low_spent_Medium_value_payments">Low spent, Medium value payments</option>
+                <option value="Low_spent_Large_value_payments">Low spent, Large value payments</option>
+                <option value="High_spent_Small_value_payments">High spent, Small value payments</option>
+                <option value="High_spent_Medium_value_payments">High spent, Medium value payments</option>
+                <option value="High_spent_Large_value_payments">High spent, Large value payments</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="monthly_balance">Monthly Balance:</label>
+            <input type="number" step="0.01" id="monthly_balance" name="monthly_balance" required>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Predict Credit Score">
+        </div>
+    </form>
+
+    <div class="prediction-result">
+        <h2>{{ prediction_results }}</h2>
+    </div>
+</div>
+
+</body>
+</html>

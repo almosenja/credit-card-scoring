@@ -9,7 +9,6 @@ def save_object(obj, file_path):
         dir_path = os.path.dirname(file_path)
         os.makedirs(dir_path, exist_ok=True)
         joblib.dump(obj, file_path)
-
     except Exception as e:
         raise CustomException(e, sys)
     
@@ -25,6 +24,11 @@ def evaluate_models(X_train, y_train, X_test, y_test, models):
                 "classification_report": classification_report(y_test, y_pred)
             }
         return model_report
+    except Exception as e:
+        raise CustomException(e, sys)
     
+def load_object(file_path):
+    try:
+        return joblib.load(file_path)
     except Exception as e:
         raise CustomException(e, sys)
